@@ -1,18 +1,6 @@
+import 'dart:convert';
 //User model
 class UserModel {
-  //  String? fullName;
-  //  String? imageUrl;
-  // bool? isOnline;
-  // bool? isChecked;
-
-  // UserModel({
-  //   this.fullName,
-  //   this.displayName,
-  //   this.imageUrl,
-  //   this.isOnline,
-  //   this.isChecked= false,
-  // });
-
   String? id;
   String? orgId;
 
@@ -88,7 +76,7 @@ class UserModel {
       isOnline: json["presence"] == "true",
       // files: Files.fromJson(json["files"]),
       imageUrl: json["image_url"],
-      fullName: json["user_name"] ,
+      fullName: json["user_name"],
       status: json["status"],
       email: json["email"],
       displayName: json["user_name"],
@@ -107,4 +95,89 @@ class UserModel {
 }
 
 //Channel model
-class ChannelModel {}
+class ChannelModel {
+  String? channelId;
+  String? channelName;
+  String? channelIcon;
+
+  ChannelModel({this.channelId, this.channelName, this.channelIcon});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': channelId,
+      'channelName': channelName,
+      'channelIcon': channelIcon,
+    };
+  }
+
+  factory ChannelModel.fromMap(Map<String, dynamic> map) {
+    return ChannelModel(
+      channelId: map['channelId'],
+      channelName: map['channelName'],
+      channelIcon: map['channelIcon'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+  factory ChannelModel.fromJson(String source) =>
+      ChannelModel.fromMap(json.decode(source));
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ChannelModel &&
+          runtimeType == other.runtimeType &&
+          channelName == other.channelName;
+
+  @override
+  int get hashCode => channelName.hashCode;
+
+  @override
+  String toString() {
+    return channelName.toString();
+  }
+}
+
+
+//SearchModel
+class SearchModel {
+  UserModel? userSearch;
+  ChannelModel? channelSearch;
+
+  SearchModel({this.userSearch, this.channelSearch});
+
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SearchModel &&
+          runtimeType == other.runtimeType &&
+         userSearch == other.userSearch;
+
+  @override
+  int get hashCode => userSearch.hashCode;
+
+  @override
+  String toString() {
+    return userSearch.toString();
+  }
+
+
+   Map<String, dynamic> toMap() {
+    return {
+      'userSearch': userSearch,
+      'channelSearch': channelSearch,
+    };
+  } 
+   factory SearchModel.fromMap(Map<String, dynamic> map) {
+    return SearchModel(
+      userSearch: map['userSearch'],
+      channelSearch: map['channelSearch'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+  factory SearchModel.fromJson(String source) =>
+      SearchModel.fromMap(json.decode(source));
+}
+

@@ -61,6 +61,7 @@ class StartDmViewModel extends FormViewModel {
     return [..._userResults];
   }
 
+  
   onTapMessageField() {
     _hasClickedMessageField = true;
     notifyListeners();
