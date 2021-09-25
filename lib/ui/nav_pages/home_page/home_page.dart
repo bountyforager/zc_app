@@ -51,6 +51,8 @@ class HomePage extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomRight ,
               child: FloatingActionButton(
+                elevation: 1,
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   onPressed: model.navigateToStartDMScreen,
                   child: const Icon(
                     Icons.open_in_new_outlined,
